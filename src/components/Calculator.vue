@@ -1,8 +1,8 @@
 <template>
   <div class="calc--wrapper">
-   <div class="display">DISPLAY HERE</div>
-   <div class="button">C</div>
-   <div class="button">+/-</div>
+   <div class="display">{{display_value || '0'}}</div>
+   <div @click="clear" class="button">C</div>
+   <div @click="sign" class="button">+/-</div>
    <div class="button ">%</div>
    <div class="button operator">÷</div>
    <div class="button">7</div>
@@ -26,6 +26,25 @@
 
 <script>
 export default {
+  data () {
+    return {
+      display_value: '2',
+      saved_value: ''
+    }
+  },
+  methods: {
+    clear () {
+      this.display_value = ''
+    },
+    sign () {
+      /*
+       * reverse the sign of i:
+       * i - (i *2)
+       */
+      this.display_value -= (this.display_value * 2)
+  
+    }
+  }
 }
 </script>
 
@@ -57,17 +76,16 @@ export default {
   grid-column: 1/3;
 }
 .button{
-  background-color:  #eee;
+  color:  #eee;
+  background: #11ee11;
   border: 1px solid;
   height: 75px;
   padding: 15px;
-
- 
+  border-color: #cccccc;
 
 }
 .operator{
-  background-color: teal;
-  color: white;
-  border-color: black;
+  background-color: #eeeeee;
+  color: #11ee11;
 }
 </style>
