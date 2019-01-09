@@ -3,21 +3,21 @@
    <div class="display">{{display_value || '0'}}</div>
    <div @click="clear" class="button">C</div>
    <div @click="sign" class="button">+/-</div>
-   <div class="button ">%</div>
+   <div @click="percent" class="button ">%</div>
    <div class="button operator">÷</div>
-   <div class="button">7</div>
-   <div class="button">8</div>
-   <div class="button">9</div>
+   <div v-on:click = "onClick" class="button">7</div>
+   <div v-on:click = "onClick" class="button">8</div>
+   <div v-on:click = "onClick"  class="button">9</div>
    <div class="button operator">X</div>
-   <div class="button">4</div>
-   <div class="button">5</div>
-   <div class="button">6</div>
+   <div v-on:click = "onClick" class="button">4</div>
+   <div v-on:click = "onClick" class="button">5</div>
+   <div v-on:click = "onClick" class="button">6</div>
    <div class="button operator">-</div>
-   <div class="button">1</div>
-   <div class="button">2</div>
-   <div class="button">3</div>
+   <div v-on:click = "onClick" class="button">1</div>
+   <div v-on:click = "onClick" class="button">2</div>
+   <div v-on:click = "onClick" class="button">3</div>
    <div class="button operator">+</div>
-   <div class="button double">0</div>
+   <div v-on:click = "onClick" class="button double">0</div>
    <div class="button">.</div>
    <div class="button operator">=</div>
 
@@ -29,7 +29,8 @@ export default {
   data () {
     return {
       display_value: '2',
-      saved_value: ''
+      saved_value: '',
+      operator: ''
     }
   },
   methods: {
@@ -39,10 +40,18 @@ export default {
     sign () {
       /*
        * reverse the sign of i:
-       * i - (i *2)
+       * i - (i * 2)
        */
+      this.display_value = `${parseFloat(this.display_value)}`
       this.display_value -= (this.display_value * 2)
-  
+    },
+    percent () {
+      this.display_value = `${parseFloat(this.display_value)}`
+      this.display_value /= 100
+    },
+    onClick: function (e) {
+      let number = e.srcElement.innerHTML
+      this.display_value = this.display_value.concat(number)
     }
   }
 }
